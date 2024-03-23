@@ -1,0 +1,115 @@
+{% with greeting=1 %}
+{% with firstname='jAnneY' %}
+{% if greeting == 1 %}
+    <h1>Hello {{ firstname|first|upper }}, how are you?</h1>
+{% elif greeting == 2 %}
+  <h1>Welcome</h1>
+{% else %}
+  <h1>Goodbye</h1>
+{% endif %} 
+{% endwith %} 
+{% endwith %} 
+{% filter upper %}
+  <h1>Hello everyone, how are you?</h1>
+{% endfilter %}
+<hr/>
+<p>{{ QuerySet_Simple }}</p>
+<p>{{ QuerySet_Detail }}</p>
+
+
+<p>The queryset object:</p>
+{{ mymembers2.0.firstname }}
+<hr>
+<table>
+    {% for x in mymembers %}
+    <tr>
+        <td>{{x.0}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<hr>
+{% filter upper|linenumbers %}
+Hello!
+my name is
+Emil.
+What is your name?
+{% endfilter %}
+
+<ul>
+    {% for x in mymembers %}
+    <li style='background-color:{% cycle 'lightblue' 'pink' 'yellow' 'coral' 'grey' %}'>
+        {{ x.firstname }}
+        </li>
+    {% endfor %}
+</ul> 
+<ul>
+    {% for x in mymembers %}
+      {% cycle 'lightblue' 'pink' 'yellow' 'coral' 'grey' as bgcolor silent %}
+      <li style='background-color:{{ bgcolor }}'>
+        {{ x.firstname }}
+      </li>
+    {% endfor %}
+  </ul> 
+1.
+<table border="1">
+    {% for x in mymembers %}
+    <tr>
+        <td>{{ x.id }}</td>
+        <td>{{ x.firstname }}</td>
+        <td>{{ x.lastname }}</td>
+    </tr>
+    {% endfor %}
+</table> 
+<br/>
+2.
+<table border="1">
+{% for x in mymembers reversed %}
+    <tr>
+        <td>{{ x.id }}</td>
+        <td>{{ x.firstname }}</td>
+        <td>{{ x.lastname }}</td>
+    </tr>
+    {% endfor %}
+</table> 
+<br/>
+3.
+<table border="1">
+{% for x in emptyObject %}
+    <tr>
+        <td>{{ x.id }}</td>
+        <td>{{ x.firstname }}</td>
+        <td>{{ x.lastname }}</td>
+        {% empty %}
+        <td>None</td>
+        <td>None</td>
+        <td>None</td>
+    </tr>
+    {% endfor %}
+</table> 
+<br/>
+4.
+{% with Numbers1='123456'%}
+{% for x in Numbers1 %}
+  <p>Loop counter: {{forloop.counter}}</p>
+{% endfor %}
+{% endwith %}
+<br/>
+5.
+{% with Numbers1='123456'%}
+{% for x in Numbers1 %}
+  <p>Loop counter: {{forloop.counter0}}</p>
+{% endfor %}
+{% endwith %}
+<br/>
+6.
+{% with Numbers1='123456'%}
+{% for x in Numbers1 %}
+    {% if forloop.first %}
+    <p>First Loop</p>
+    {% elif forloop.last %}
+    <p>Last Loop</p>
+    {% else %}
+    <p>Not First Loop</p>
+  {% endif %}
+{% endfor %}
+{% endwith %}
